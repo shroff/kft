@@ -141,7 +141,6 @@ void process_new_connection() {
 
 	if(in_buffer[0] != 0) return;
 
-	serving = 1;
 	read_int(&packet_size, in_buffer + 1);
 	packet_size &= 0x00FFFFFF;
 	filename = (uchar *)malloc(in_size-4+1);
@@ -149,7 +148,6 @@ void process_new_connection() {
 	filename[in_size-sizeof(packet_size)] = '\0';
 	printf("%s\t%d\n", (char *)filename, debug);
 
-	out_buffer = (uchar *)malloc(packet_size*sizeof(uchar));
 	data_offset = 0;
 	out_size = packet_size;
 	data_size = packet_size-4;
@@ -158,11 +156,18 @@ void process_new_connection() {
 
 	if(debug) {
 		FILE *fp = fopen(filename, "rb");
+		if(!fp) {
+			printf("File %s was not found. Terminating Connection.\n", filename);
+			return;
+		}
 		fseek(fp, 0, SEEK_END);
+
 		uint size = ftell(fp);
 		fclose(fp);
 		printf("Accepted connection.\nFile: %s, File Size: %u\nPacket size: %u, Data per packet: %u, Packets required: %u\n", (char *)filename, size, packet_size, data_size, (size+data_size-1)/data_size);
 	}
+	out_buffer = (uchar *)malloc(packet_size*sizeof(uchar));
+	serving = 1;
 }
 
 
