@@ -98,18 +98,23 @@ int main(int argc, char *argv[]) {
 }
 
 int process_read() {
-	alt = in_buffer[0];
 	uint exp;
 	read_int3(&exp, in_buffer+1);
 
 
 	if(in_size == exp) {
-		if(alt == 2) {
+		if(in_buffer[0] == 2) {
 			out_buffer[0] = (uchar)(2);
 			out_size = 1;	
 			write_data();
 			return 1;
 		}
+		if(alt == in_buffer[0]) {
+			resend = 1;
+			return 0;
+		}
+		alt = in_buffer[0];
+
 		FILE *fp = fopen(local_filename, "ab");
 		if(!fp) {
 			fprintf(stderr, "Could not open file %s for writing.", local_filename);

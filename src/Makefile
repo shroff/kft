@@ -20,7 +20,7 @@ testserver: kftserver
 	$(BINPATH)/kftserver -d 1234 90
 
 testclient: kftclient
-	$(BINPATH)/kftclient -d 127.0.0.1 1234 ../doc/README.tex testcl 1024 0
+	$(BINPATH)/kftclient -d 127.0.0.1 1234 ../doc/README.tex testcl 1024 90
 
 clean:
 	rm -rf $(BINPATH)/*

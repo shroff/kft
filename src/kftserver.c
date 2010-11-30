@@ -146,12 +146,11 @@ void process_new_connection() {
 	filename = (uchar *)malloc(in_size-4+1);
 	memcpy(filename, in_buffer+4, in_size-4);
 	filename[in_size-sizeof(packet_size)] = '\0';
-	printf("%s\t%d\n", (char *)filename, debug);
 
 	data_offset = 0;
 	out_size = packet_size;
 	data_size = packet_size-4;
-	alt = 0;
+	alt = 1;
 	fno = 0;
 
 	if(debug) {
