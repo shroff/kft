@@ -187,7 +187,7 @@ int prepare_packet() {
 
 	FILE *fp = fopen(filename, "rb");
 	if(fp == NULL) {
-		fprintf(stderr, "Sending terminating connection\n", filename);
+		fprintf(stderr, "Sending termination\n", filename);
 		out_size = 4;
 		out_buffer[0] = (uchar)3;
 		goto end;
