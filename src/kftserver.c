@@ -147,6 +147,8 @@ void process_new_connection() {
 	memcpy(filename, in_buffer+4, in_size-4);
 	filename[in_size-sizeof(packet_size)] = '\0';
 
+	out_buffer = (uchar *)malloc(packet_size*sizeof(uchar));
+	serving = 1;
 	data_offset = 0;
 	out_size = packet_size;
 	data_size = packet_size-4;
@@ -156,7 +158,7 @@ void process_new_connection() {
 	if(debug) {
 		FILE *fp = fopen(filename, "rb");
 		if(!fp) {
-			printf("File %s was not found. Terminating Connection.\n", filename);
+			printf("Accepted Connection.\nFile %s does not exist.\n", (char *)filename);
 			return;
 		}
 		fseek(fp, 0, SEEK_END);
@@ -165,8 +167,6 @@ void process_new_connection() {
 		fclose(fp);
 		printf("Accepted connection.\nFile: %s, File Size: %u\nPacket size: %u, Data per packet: %u, Packets required: %u\n", (char *)filename, size, packet_size, data_size, (size+data_size-1)/data_size);
 	}
-	out_buffer = (uchar *)malloc(packet_size*sizeof(uchar));
-	serving = 1;
 }
 
 
@@ -187,10 +187,10 @@ int prepare_packet() {
 
 	FILE *fp = fopen(filename, "rb");
 	if(fp == NULL) {
-		fprintf(stderr, "File %s not found. Terminating connection\n", filename);
-		free(out_buffer);
-		serving = 0;
-		return 1;
+		fprintf(stderr, "Sending terminating connection\n", filename);
+		out_size = 4;
+		out_buffer[0] = (uchar)3;
+		goto end;
 	}
 	fseek(fp, data_offset, SEEK_SET);
 	int len = fread(out_buffer+4, 1, data_size, fp);
@@ -220,7 +220,13 @@ void process_read() {
 		process_new_connection();
 	} else if(in_buffer[0] == 2) { /* Old connection closed */
 		if(debug)
-			printf("Transaction successfully completed.\n");
+			printf("Transaction successfully completed. File sent\n");
+		finished = 0;
+		serving = 0;
+		free(out_buffer);
+	} else if(in_buffer[0] == 3) { /* Connection closed after file was not found */
+		if(debug)
+			printf("Transaction successfully completed. File not foud on local server.\n");
 		finished = 0;
 		serving = 0;
 		free(out_buffer);

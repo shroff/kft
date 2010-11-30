@@ -17,6 +17,8 @@ uchar *local_filename;
 
 uchar alt;
 
+uint fno;
+
 int process_read(void);
 void prepare_packet(void);
 void print_usage(void);
@@ -76,9 +78,12 @@ int main(int argc, char *argv[]) {
 	struct timeval stime, etime;
 	gettimeofday(&stime, NULL);
 
+	int code;
+	fno = 0;
+
 	while(1) {
 		write_read_data();
-		if(process_read()) break;
+		if(code = process_read()) break;
 		prepare_packet();
 	}
 
@@ -91,8 +96,11 @@ int main(int argc, char *argv[]) {
 		ds--;
 		du += 1000000;
 	}
-
-	printf("Transfer completed. Time taken: %d.%d seconds.\n", ds, du);
+	if(code == 1) {
+		printf("Transfer completed. Time taken: %d.%d seconds.\n", ds, du);
+	} else {
+		printf("File %s not found on the remote server.\n", remote_filename);
+	}
 
 	return 0;
 }
@@ -109,6 +117,12 @@ int process_read() {
 			write_data();
 			return 1;
 		}
+		if(in_buffer[0] == 3) {
+			out_buffer[0] = (uchar)(3);
+			out_size = 1;
+			write_data;
+			return 2;
+		}
 		if(alt == in_buffer[0]) {
 			resend = 1;
 			return 0;
@@ -122,6 +136,8 @@ int process_read() {
 		}
 		fwrite(in_buffer+4, 1, in_size-4, fp);
 		fclose(fp);
+		if(debug)
+			printf("Packet %d received\n", fno++);
 	} else {
 		resend = 1;
 	}

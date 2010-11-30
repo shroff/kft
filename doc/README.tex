@@ -1,36 +1,28 @@
 \documentclass[12pt]{article}
 \begin{document}
 
-\title{CS 3251 -- Programming Assignment 1}
+\title{CS 3251 -- Programming Assignment 2}
 \author{Abhishek Shroff}
 \date{September 23, 2010}
 \maketitle
 
 \section{Submission}
-This tar.gz file contains3 directories -- \emph{bin}, \emph{doc}, and \emph{src}.
+This tar.gz file contains 4 directories -- \emph{bin}, \emph{doc}, \emph{src}, and \emph{test}.
 
 The \emph{doc} directory contains this readme, as well as the output file that shows the replies received from the TCP and UDP servers.
 
 The \emph{bin} directory contains binary files created as a result of executing 'make' in the \emph{src} directory.
 
-The \emph{src} directory contains all the source files that are required for this project. It also contains a Makefile that contains targets for common builds. Apart from the standard first \emph{all} target, tt contains a \emph{clean} target that completely removes everything inside the \emph{bin} directory, and a \emph{debug} target that compiles everything in debug mode, that shows what is happening inside both ends of the program.
+The \emph{src} directory contains all the source files that are required for this project including a Makefile that contains a target to build the binaries and place them in the appropriate folder.
+
+The \emph{test} directory contains test files of various sizes ranging from 100kb - 100mb, and some test scripts that record values after running the required transfer tests.
 
 \section{Protocol}
-\subsection{TCP}
-The TCP part is fairly straightforward. The TCP client is not supposed to disconnect from the server before the end of the entire transaction. There will only be a performance penalty if it does. There is a simple request-reply paradigm that the suite follows.
+The protocol follows an extremely simple design with minimal header information.
 
-The client first establishes a connection with the server. There is no additional handshake on top of TCP. Once the connection is established, the client sends a triple separated by greater than or equal to one space in the middle of each. The first two components must be integers, and the last component must be a symbol in \{+, -, *, /, \%\}. The result of each operation is an integer that is relayed back to the client as well as stored on the server. Once the client receives the response, it procedes sending the next two components of the expression because the server will automatically treat the previous result as the first operand.
+First, a transaction is started by a client by sending a packet whose first byte is a 0, followed by 3 bytes of maximum packet length, least significant byte first. Following these 4 bytes are the characters of the file name up until the end of the packet. Note that since the maximum packet size has to be sent in 3 bytes, a packet size cannot have an unsigned representation greater than 24 bits. This means that the maximum supported packet size is 4MB.
 
-If at any point during the transaction, the client sends a request that does not consist of a triple, the server responds with the string \emph{invalid}. The server tries to cope with denial of service by terminating the connection with invalid requests.
-
-The client ends the transaction with the server by sending the \emph{end}. This terminates the connection on the server side, and the server starts waiting for any more connections.
-
-
-\subsection{UDP}
-The UDP server responds to single stateless requests. It takes in a triple in the same format as the TCP part -- \emph{integer} \emph{integer} \emph{operation}, and replies back with the result.
-
-A UDP client must send in a triple, get the response, and treat the response as the first operand of the next operation. Since this a datagram connection, there is a chance of packet loss. The client waits for a response from the server, and times out between 3 and 8 seconds. It allows for 5 maximum timeouts before it decides that the server is not available.
-
+The server receives this packet and
 \section{Limitations}
 The servers are fairly robust, and will not terminate on any input from the clients. That said, there are some limitations, which, if surpassed, will break this program.
 \begin{enumerate}

@@ -1,0 +1,72 @@
+Testing Server Error:
+1%:
+Transfer completed. Time taken: 35.591953 seconds.
+Transfer completed. Time taken: 36.372392 seconds.
+Transfer completed. Time taken: 36.460533 seconds.
+Transfer completed. Time taken: 35.125759 seconds.
+2%:
+Transfer completed. Time taken: 39.770315 seconds.
+Transfer completed. Time taken: 39.506218 seconds.
+Transfer completed. Time taken: 42.831004 seconds.
+Transfer completed. Time taken: 40.857309 seconds.
+5%:
+Transfer completed. Time taken: 56.632841 seconds.
+Transfer completed. Time taken: 54.903165 seconds.
+Transfer completed. Time taken: 53.186409 seconds.
+Transfer completed. Time taken: 54.482814 seconds.
+10%:
+Transfer completed. Time taken: 77.528116 seconds.
+Transfer completed. Time taken: 82.653995 seconds.
+Transfer completed. Time taken: 82.454052 seconds.
+Transfer completed. Time taken: 82.58021 seconds.
+20%:
+Transfer completed. Time taken: 142.129560 seconds.
+Transfer completed. Time taken: 143.253629 seconds.
+Transfer completed. Time taken: 139.371044 seconds.
+Transfer completed. Time taken: 144.641494 seconds.
+30%:
+Transfer completed. Time taken: 215.346294 seconds.
+Transfer completed. Time taken: 214.943202 seconds.
+40%:
+Transfer completed. Time taken: 311.68050 seconds.
+50%:
+Transfer completed. Time taken: 456.109089 seconds.
+60%:
+Transfer completed. Time taken: 702.423622 seconds.
+70%:
+Transfer completed. Time taken: 1133.759895 seconds.
+80%:
+Transfer completed. Time taken: 1911.586673 seconds.
+Testing client errors:
+Testing client errors:
+Transfer completed. Time taken: 29.180273 seconds.
+Transfer completed. Time taken: 36.653018 seconds.
+Transfer completed. Time taken: 51.309110 seconds.
+Transfer completed. Time taken: 87.587833 seconds.
+Transfer completed. Time taken: 117.842602 seconds.
+Transfer completed. Time taken: 154.4249 seconds.
+Transfer completed. Time taken: 251.790394 seconds.
+Transfer completed. Time taken: 364.13010 seconds.
+Transfer completed. Time taken: 550.848914 seconds.
+Transfer completed. Time taken: 798.651874 seconds.
+Transfer completed. Time taken: 1223.416617 seconds.
+Transfer completed. Time taken: 2089.651664 seconds.
+Testing packet size:
+Transfer completed. Time taken: 582.576264 seconds.
+Transfer completed. Time taken: 289.846969 seconds.
+Transfer completed. Time taken: 145.223073 seconds.
+Transfer completed. Time taken: 70.271048 seconds.
+Transfer completed. Time taken: 35.983912 seconds.
+Transfer completed. Time taken: 18.870924 seconds.
+Transfer completed. Time taken: 9.60615 seconds.
+Transfer completed. Time taken: 5.189364 seconds.
+Transfer completed. Time taken: 2.366079 seconds.
+Transfer completed. Time taken: 1.92011 seconds.
+Testing file size
+Transfer completed. Time taken: 0.659442 seconds.
+Transfer completed. Time taken: 2.494022 seconds.
+Transfer completed. Time taken: 5.861290 seconds.
+Transfer completed. Time taken: 27.997356 seconds.
+Transfer completed. Time taken: 60.127651 seconds.
+Transfer completed. Time taken: 283.770513 seconds.
+Transfer completed. Time taken: 575.398037 seconds.
