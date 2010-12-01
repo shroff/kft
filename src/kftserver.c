@@ -230,7 +230,7 @@ void process_read() {
 		finished = 0;
 		serving = 0;
 		free(out_buffer);
-	} else if(in_buffer[0] >> 4 != alt) {
+	} else if(in_buffer[0] >> 7 != alt) {
 		if(debug)
 			printf("Resending old packet.\n");
 		resend = 1;

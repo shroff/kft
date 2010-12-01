@@ -149,7 +149,7 @@ void prepare_packet() {
 		resend = 0;
 		return;
 	}
-	out_buffer[0] = (uchar)(alt<<4 | 1);
+	out_buffer[0] = (uchar)(alt<<7 | 1);
 	out_size = 1;	
 }
 
