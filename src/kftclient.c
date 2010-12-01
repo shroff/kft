@@ -154,6 +154,6 @@ void prepare_packet() {
 }
 
 void print_usage() {
-	fprintf(stderr, "Usage: kftclient [-d] <server_name> <server_portno> <remote_filename> <local_filename> <max_packetsize> <loss_percent>i\n");
+	fprintf(stderr, "Usage: kftclient [-d] <server_name> <server_portno> <remote_filename> <local_filename> <max_packetsize> <loss_percent>\n");
 	exit(1);
 }
