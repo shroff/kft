@@ -147,7 +147,9 @@ void process_new_connection() {
 	memcpy(filename, in_buffer+4, in_size-4);
 	filename[in_size-sizeof(packet_size)] = '\0';
 
-	out_buffer = (uchar *)malloc(packet_size*sizeof(uchar));
+	packet_size++;			/* to compensate for the pre-increment */
+	while(!(out_buffer = (uchar *)malloc(--packet_size*sizeof(uchar))));
+
 	serving = 1;
 	data_offset = 0;
 	out_size = packet_size;
